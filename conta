@@ -1,0 +1,28 @@
+class Conta:
+  def __init__(self,email,senha):
+    self.email= email
+    self.senha= senha
+    self.amigos= []
+    self.publicaçoes= []
+  
+  def get_email(self):
+    return(self.email)
+  
+  def get_senha(self):
+    return(self.senha)
+  
+  def get_amigos(self):
+    return(self.amigos)
+  
+  def get_publicacoes(self):
+    return(self.publicaçoes)
+  
+  def set_email(self,email):
+    self.email = email
+  
+  def set_senha(self,senha):
+    if len(senha)<6:
+      pass
+    elif len(senha)>=6:
+      self.senha= senha
+  
