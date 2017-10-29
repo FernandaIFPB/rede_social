@@ -25,4 +25,13 @@ class Conta:
       pass
     elif len(senha)>=6:
       self.senha= senha
+      
+ def menu_conta(self):
+    print("Bem vindo")
+    opçao = -1
+    while(opçao != 'x'):
+      print("1- Publicar")
+      print("2- Ver amizades")
+      print('x- Sair')
+      opçao= input("Digite a opção")
   
