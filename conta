@@ -26,12 +26,34 @@ class Conta:
     elif len(senha)>=6:
       self.senha= senha
       
- def menu_conta(self):
-    print("Bem vindo")
+def menu_conta(self):
+    print("Bem vind@",self.email,"!")
     opçao = -1
     while(opçao != 'x'):
-      print("1- Publicar")
-      print("2- Ver amizades")
+      print("1- Publicar ✎ ")
+      print("2- Ver publicações")
+      print("3- Ver amigos")
+      print("4- Mudar a senha")
+      print("5- Procurar amigos ⌕")
       print('x- Sair')
       opçao= input("Digite a opção")
-  
+      
+      if opçao == '1':
+        publicacao= input("Digite")
+        self.publicacoes.append(publicacao)
+ 
+      elif opçao == '2':
+        self.get_publicacoes()
+      
+      elif opçao == '3':
+        self.get_amigos()
+      
+      elif opçao == '4':
+        nova_senha= input("Digite a nova senha, deve conter no minimo 6 caracteres")
+        self.set_senha(nova_senha)
+      
+      elif opçao == '5':
+        nome= input("Digite o nome do amigo")
+
+      elif opçao == 'x':
+        pass
