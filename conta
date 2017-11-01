@@ -26,6 +26,14 @@ class Conta:
     elif len(senha)>=6:
       self.senha= senha
       
+def adicionar_publicacao(self,publicacao):
+    if len(publicacao) <= 140:
+          self.publicacoes.append(publicacao)
+          print("Publicado com sucesso")
+    elif len(publicacao) > 140:
+      print("A publicação tem mais de 140 caracteres")      
+      
+      
 def menu_conta(self):
     print("Bem vind@",self.email,"!")
     opçao = -1
@@ -39,8 +47,8 @@ def menu_conta(self):
       opçao= input("Digite a opção")
       
       if opçao == '1':
-        publicacao= input("Digite")
-        self.publicacoes.append(publicacao)
+        publicacao= input("Digite, a publicação deve conter menos de 140 caracteres")
+        self.adicionar_publicacao(publicacao)
  
       elif opçao == '2':
         self.get_publicacoes()
