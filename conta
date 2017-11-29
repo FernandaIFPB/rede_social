@@ -3,38 +3,51 @@ class Conta:
     self.email= email
     self.senha= senha
     self.amigos= []
-    self.publicaçoes= []
-  
+    self.publicacoes= []
+
   def get_email(self):
     return(self.email)
-  
+
   def get_senha(self):
     return(self.senha)
-  
+
   def get_amigos(self):
-    return(self.amigos)
-  
+    if self.amigos == []:
+      print("Você ainda não tem amigos")
+    else:
+      for amigo in self.amigos:
+        print(amigo)
+
   def get_publicacoes(self):
-    return(self.publicaçoes)
-  
-  def set_email(self,email):
-    self.email = email
-  
+    if self.publicacoes == []:
+      print("Você ainda não tem publicações")
+    else:
+      for publicacao in self.publicacoes:
+        print(publicacao)
+
   def set_senha(self,senha):
     if len(senha)<6:
-      pass
+      print("Senha contem menos de 6 caracteres")
     elif len(senha)>=6:
       self.senha= senha
-      
-def adicionar_publicacao(self,publicacao):
+      print("Senha alterada com sucesso")
+
+  def adicionar_publicacao(self,publicacao):
     if len(publicacao) <= 140:
           self.publicacoes.append(publicacao)
           print("Publicado com sucesso")
     elif len(publicacao) > 140:
-      print("A publicação tem mais de 140 caracteres")      
-      
-      
-def menu_conta(self):
+      print("A publicação tem mais de 140 caracteres")
+
+  def procurar_amigo(self,nome):
+    for amigo in Rede.usuarios:
+      if amigo.nome == nome:
+        return(amigo)
+      else:
+        pass
+
+
+  def menu_conta(self):
     print("Bem vind@",self.email,"!")
     opçao = -1
     while(opçao != 'x'):
@@ -42,26 +55,23 @@ def menu_conta(self):
       print("2- Ver publicações")
       print("3- Ver amigos")
       print("4- Mudar a senha")
-      print("5- Procurar amigos ⌕")
       print('x- Sair')
       opçao= input("Digite a opção")
-      
+
       if opçao == '1':
         publicacao= input("Digite, a publicação deve conter menos de 140 caracteres")
         self.adicionar_publicacao(publicacao)
- 
+
       elif opçao == '2':
         self.get_publicacoes()
-      
+
       elif opçao == '3':
         self.get_amigos()
-      
+
       elif opçao == '4':
         nova_senha= input("Digite a nova senha, deve conter no minimo 6 caracteres")
         self.set_senha(nova_senha)
-      
-      elif opçao == '5':
-        nome= input("Digite o nome do amigo")
+
 
       elif opçao == 'x':
         pass

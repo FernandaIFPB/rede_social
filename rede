@@ -1,6 +1,3 @@
-from usuario import Usuario
-from conta import Conta
-
 
 class Rede:
   def __init__(self):
@@ -9,22 +6,23 @@ class Rede:
     self.usuarios= []
     self.contas= []
     self.emails= []
-  
+
+
   def get_nome(self):
     return(self.nome)
-  
+
   def get_fundadores(self):
     return(self.fundadores)
-  
+
   def get_usuarios(self):
     return(self.usuarios)
-  
+
   def get_contas(self):
     return(self.contas)
-  
+
   def get_emails(self):
     return(self.emails)
-  
+
   def cadastrar_usuario(self,nome,email,senha,idade,profissao):
     if email in self.emails:
       print("Email já existe")
@@ -38,6 +36,7 @@ class Rede:
       self.contas.append(nova_conta)
       print("Usuario cadastrado com sucesso")
 
+
   def mostrar_usuarios(self):
     print(self.emails)
 
@@ -46,17 +45,25 @@ class Rede:
       for c in self.contas:
         if c.email == email:
           if c.senha == senha:
-            print("Login efetuado com sucesso")
+            return("Login efetuado com sucesso")
           else:
-            print("Senha incorreta")
+            return("Senha incorreta")
         else:
           pass
     else:
-      print("Email não cadastrado")
-  
+      return("Email não cadastrado")
+
+  def buscar_conta(self,email):
+    if email in self.emails:
+      for conta in self.contas:
+        if conta.email == email:
+          return(conta)
+    else:
+      pass
+
   def menu(self):
-    
-    
+
+
     print("☝ BEM-VINDO A REDE SOCIAL ✌" )
     opçao = -1
     while(opçao != 'x'):
@@ -65,7 +72,7 @@ class Rede:
       print("3- Mostrar usuarios")
       print('x- Sair')
       opçao= input("Digite a opção")
-    
+
       if opçao == '1':
         nome= input("Digite seu nome")
         email= input("Digite o email")
@@ -73,11 +80,17 @@ class Rede:
         idade= input("Digite a idade")
         profissao= input("Digite a profissao")
         self.cadastrar_usuario(nome,email,senha,idade,profissao)
-      
+
+
       if opçao == '2':
         email= input("Digite o email")
         senha= input("Digite a senha")
-        self.logar(email,senha)
-      
+        login= self.logar(email,senha)
+        print(login)
+        if login == "Login efetuado com sucesso":
+          conta= self.buscar_conta(email)
+          Conta.menu_conta(conta)
+
+
       if opçao == '3':
         self.mostrar_usuarios()
