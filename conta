@@ -1,3 +1,5 @@
+from rede import Rede
+
 class Conta:
   def __init__(self,email,senha):
     self.email= email
