@@ -1,6 +1,10 @@
 from rede import Rede
 
-class Conta:
+class Conta(db.Model):
+  email = db.Column(db.String(50), primary_key= True)
+  senha = db.Column(db.String(20), nullable=False)
+
+  
   def __init__(self,email,senha):
     self.email= email
     self.senha= senha
@@ -41,12 +45,6 @@ class Conta:
     elif len(publicacao) > 140:
       print("A publicação tem mais de 140 caracteres")
 
-  def procurar_amigo(self,nome):
-    for amigo in Rede.usuarios:
-      if amigo.nome == nome:
-        return(amigo)
-      else:
-        pass
 
 
   def menu_conta(self):
@@ -73,7 +71,12 @@ class Conta:
       elif opçao == '4':
         nova_senha= input("Digite a nova senha, deve conter no minimo 6 caracteres")
         self.set_senha(nova_senha)
-
+      
+      elif opçao == '5':
+        usuario= Rede.buscar_usuario(Rede,self.email)
+        novo_nome= input('Digite o novo nome')
+        Usuario.set_nome(usuario,novo_nome)
+        
 
       elif opçao == 'x':
         pass
