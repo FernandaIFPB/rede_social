@@ -1,7 +1,19 @@
-testando
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-class Usuario:
-  def __init__(self,nome,email,idade,profissao):
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+db = SQLAlchemy(app)
+
+class Usuario(db.Model):
+  
+  nome = db.Column(db.String(20), nullable=False)
+  email = db.Column(db.String(50), primary_key= True)
+  idade= db.Column(db.Integer)
+  profissao= db.Column(db.String(20))
+  
+  def __init__(self,nome,email,idade,profissao,**kwargs):
+    super(Usuario, self).__init__(**kwargs)
     self.nome= nome
     self.email= email
     self.idade= idade
@@ -33,3 +45,6 @@ class Usuario:
 
   def set_profissao(self,profissao):
     self.profissao= profissao
+    
+    
+db.create_all()
