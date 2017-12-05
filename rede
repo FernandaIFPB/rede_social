@@ -33,9 +33,13 @@ class Rede:
     else:
       novo_usuario= Usuario(nome,email,idade,profissao)
       self.usuarios.append(novo_usuario)
+      db.session.add(novo_usuario)
+      db.session.commit()
       self.emails.append(email)
       nova_conta= Conta(email,senha)
       self.contas.append(nova_conta)
+      db.session.add(nova_conta)
+      db.session.commit()
       print("Usuario cadastrado com sucesso")
 
 
