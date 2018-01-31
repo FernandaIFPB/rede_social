@@ -1,10 +1,8 @@
-from conta import Conta
-from usuario import Usuario
-
 class Rede:
+
   def __init__(self):
-    self.nome= None
-    self.fundadores= None
+    self.nome= "FEHTER"
+    self.fundadores= "Fernanda e Estefany"
     self.usuarios= []
     self.contas= []
     self.emails= []
@@ -28,23 +26,21 @@ class Rede:
   def cadastrar_usuario(self,nome,email,senha,idade,profissao):
     if email in self.emails:
       print("Email já existe")
-    elif len(senha)<6:
-      print("A senha deve conter no minimo 6 caracteres")
+    if len(senha)<6:
+      raise SenhaMenor6Exception("A senha deve conter no minimo 6 caracteres")
+    if int(idade)<18:
+      raise IdadeMenor18Exception("Usuário menor de idade")
     else:
       novo_usuario= Usuario(nome,email,idade,profissao)
       self.usuarios.append(novo_usuario)
-      db.session.add(novo_usuario)
-      db.session.commit()
       self.emails.append(email)
       nova_conta= Conta(email,senha)
       self.contas.append(nova_conta)
-      db.session.add(nova_conta)
-      db.session.commit()
       print("Usuario cadastrado com sucesso")
 
-
   def mostrar_usuarios(self):
-    print(self.emails)
+    for usuario in self.usuarios:
+      print(usuario.nome)
 
   def logar(self,email,senha):
     if email in self.emails:
@@ -67,15 +63,37 @@ class Rede:
     else:
       pass
 
+
+  def buscar_usuario(self,email):
+    if email in self.emails:
+      for usuario in self.usuarios:
+        if usuario.email == email:
+          return(usuario)
+    else:
+      pass
+
+  def procurar_amigo(self,nome):
+    for amigo in self.usuarios:
+      if amigo.nome == nome:
+        return(amigo)
+      else:
+        pass
+
+  def adicionar_amigo(self,conta,amigo):
+    conta_amigo= self.buscar_conta(amigo.email)
+    conta.amigos.append(conta_amigo)
+
+
+
   def menu(self):
-
-
-    print("☝ BEM-VINDO A REDE SOCIAL ✌" )
+    print("☝ BEM-VINDO A REDE SOCIAL" ,self.nome, "✌"  )
+    print("Fundadores:",self.fundadores)
     opçao = -1
     while(opçao != 'x'):
       print("1- Cadastrar usuário")
       print("2- Fazer login")
       print("3- Mostrar usuarios")
+      print("4- Pesquisar conta")
       print('x- Sair')
       opçao= input("Digite a opção")
 
@@ -85,7 +103,12 @@ class Rede:
         senha= input("Digite a senha, deve conter no minimo 6 caracteres")
         idade= input("Digite a idade")
         profissao= input("Digite a profissao")
-        self.cadastrar_usuario(nome,email,senha,idade,profissao)
+        try:
+          self.cadastrar_usuario(nome,email,senha,idade,profissao)
+        except SenhaMenor6Exception as s:
+          print('O usuário não foi cadastrado. Erro:', s)
+        except IdadeMenor18Exception as i:
+          print('O usuário não foi cadastrado. Erro:', i)
 
 
       if opçao == '2':
@@ -97,6 +120,9 @@ class Rede:
           conta= self.buscar_conta(email)
           Conta.menu_conta(conta)
 
-
       if opçao == '3':
         self.mostrar_usuarios()
+
+      if opçao == '4':
+        email= input("Digite o email")
+        print(self.buscar_conta(email))
