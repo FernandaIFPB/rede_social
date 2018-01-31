@@ -1,10 +1,5 @@
-from rede import Rede
+class Conta:
 
-class Conta(db.Model):
-  email = db.Column(db.String(50), primary_key= True)
-  senha = db.Column(db.String(20), nullable=False)
-
-  
   def __init__(self,email,senha):
     self.email= email
     self.senha= senha
@@ -55,6 +50,7 @@ class Conta(db.Model):
       print("2- Ver publicações")
       print("3- Ver amigos")
       print("4- Mudar a senha")
+      print("5- Procurar amigo")
       print('x- Sair')
       opçao= input("Digite a opção")
 
@@ -71,12 +67,17 @@ class Conta(db.Model):
       elif opçao == '4':
         nova_senha= input("Digite a nova senha, deve conter no minimo 6 caracteres")
         self.set_senha(nova_senha)
-      
+
       elif opçao == '5':
-        usuario= Rede.buscar_usuario(Rede,self.email)
-        novo_nome= input('Digite o novo nome')
-        Usuario.set_nome(usuario,novo_nome)
-        
+        nome= input('Digite o nome')
+        amigo= Rede.procurar_amigo(Rede,nome)
+        print(amigo)
+        adicionar= input("Você quer adicionar essa pessoa? S/N")
+        if adicionar == 'S':
+          Rede.adicionar_amigo(Rede,self,amigo)
+        elif adicionar == 'N':
+          pass
+
 
       elif opçao == 'x':
         pass
